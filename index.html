@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="description" content="" />
+  </head>
+
+  <body>
+    <h1>bienvenidos a endpoints server</h1>
+    <form method="post" action="https://primerserverdevplace.herokuapp.com/user/create">
+      <div>
+        <input placeholder="nombre" name="name" />
+        <input placeholder="email" name="email" />
+        <input placeholder="clave" name="pass" />
+      </div>
+      <button type="submit">crear</button>
+    </form>
+    <form method="put" action="https://primerserverdevplace.herokuapp.com/user/create">
+      <div>
+        <input placeholder="viejo mail" name="oldMail" />
+        <input placeholder="nuevo mail" name="newMail" />
+      </div>
+      <button type="submit">modificar</button>
+    </form>
+  </body>
+</html>
