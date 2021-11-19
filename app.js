@@ -2,6 +2,7 @@
 const methodOverride = require('method-override')
 const cors = require('cors')
 const express = require('express')
+const multer = require('multer')
 
 
 const app = express();
@@ -44,7 +45,7 @@ const multerConfig= multer.diskStorage({
    },
 });
 const multerMiddle =multer({storage:multerConfig})
-server.get("/",(req,res)=>{
+app.get("/",(req,res)=>{
    res.send("start endpoint")
 })
 
