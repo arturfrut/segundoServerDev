@@ -8,11 +8,12 @@
 
   <body>
     <h1>bienvenidos a endpoints server</h1>
-    <form method="post" action="https://primerserverdevplace.herokuapp.com/user/create">
+    <form method="post" action="https://primerserverdevplace.herokuapp.com/user/create " enctype="multipart/form-data>
       <div>
         <input placeholder="nombre" name="name" />
         <input placeholder="email" name="mail" />
         <input placeholder="clave" name="pass" />
+        <input type="file" name="imagefile">
       </div>
       <button type="submit">crear</button>
     </form>

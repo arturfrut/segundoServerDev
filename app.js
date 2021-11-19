@@ -28,10 +28,25 @@ let users = [{
 },
 ]; 
 
-//app.use(cors());
+app.use(cors());
 app.use(methodOverride());
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
+
+const multerConfig= multer.diskStorage({
+   destination:function(res,file,cb){
+       cb(null,"./bucket")
+   },
+   filename:function(res,file,cb){
+       let idImage = uuid().split('-')[0]
+       let day = dayjs.format('DD-MM-YYYY')
+       cb(null,`${day}.${idImage}.${file.originalname}`);
+   },
+});
+const multerMiddle =multer({storage:multerConfig})
+server.get("/",(req,res)=>{
+   res.send("start endpoint")
+})
 
 app.get("/users", (req, res)=>{
    res.send(users);
@@ -56,7 +71,7 @@ app.get("/user/?names", (req, res)=>{
 })
 });      
 
-app.post("/user/create/", (req, res)=>{
+app.post("/user/create/",multerMiddle.single("imagefile") ,(req, res)=>{
    let newUser = {
       email: req.body.mail,
       name: req.body.name,
@@ -66,7 +81,7 @@ app.post("/user/create/", (req, res)=>{
       res.send('Ese mail ya esta siendo usado')
    }else{
       users.push(newUser);
-      res.send("usuario creado");
+      res.send("usuario creado con imagen");
    }
 });
 
