@@ -3,6 +3,8 @@ const methodOverride = require('method-override')
 const cors = require('cors')
 const express = require('express')
 const multer = require('multer')
+var dayjs = require('dayjs')
+let {v4:uuid} = require("uuid");
 
 
 const app = express();
@@ -40,8 +42,8 @@ const multerConfig= multer.diskStorage({
    },
    filename:function(res,file,cb){
        let idImage = uuid().split('-')[0]
-       let day = dayjs.format('DD-MM-YYYY')
-       cb(null,`${day}.${idImage}.${file.originalname}`);
+
+       cb(null,`${idImage}.${file.originalname}`);
    },
 });
 const multerMiddle =multer({storage:multerConfig})
@@ -72,12 +74,13 @@ app.get("/user/?names", (req, res)=>{
 })
 });      
 
-app.post("/user/create/",multerMiddle.single("imagefile") ,(req, res)=>{
+app.post("/registrousuario",multerMiddle.single("imagefile") ,(req, res)=>{
    let newUser = {
       email: req.body.mail,
       name: req.body.name,
       pass: req.body.pass
    }
+   const image = req.file
    if (newUser.mail in users == true){
       res.send('Ese mail ya esta siendo usado')
    }else{
