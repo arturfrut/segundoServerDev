@@ -46,10 +46,10 @@ app.get("/user/:email", (req, res)=>{
    res.send(emailUser);
 });
 
-app.get("/user/:names", (req, res)=>{
+app.get("/user/?names", (req, res)=>{
    let nameUsers = [];
    nameUsers = users.map((user,i)=>{   
-      if (user[i].name == req.params.names){
+      if (user[i].name == req.query.names){
          nameUsers.push(user[i])
       }
    res.send(nameUsers);
@@ -78,6 +78,16 @@ app.delete("/user/delete/:email", (req, res)=>{
    });
    res.send('usuario Eliminado')
 });
+
+
+app.delete("/user/delete",(req,res)=>{
+   let mail= req.query.mail;
+   mail.forEach(para=>{   
+       users= users.filter((elemento)=>elemento.email!=para) 
+   })
+   res.send("usuarios eliminado")
+})
+
 
 
 app.put("/user/modify/:mail/:nuevomail", (req, res)=>{
